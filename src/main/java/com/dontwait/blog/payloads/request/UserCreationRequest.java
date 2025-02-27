@@ -1,15 +1,11 @@
-package com.dontwait.blog.payloads;
+package com.dontwait.blog.payloads.request;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class UserDto {
+public class UserCreationRequest {
 
     private int id;
     private String name;

@@ -1,19 +1,19 @@
 package com.dontwait.blog.services;
 
 import com.dontwait.blog.entity.User;
-import com.dontwait.blog.payloads.UserDto;
+import com.dontwait.blog.payloads.request.UserCreationRequest;
+import com.dontwait.blog.payloads.request.UserUpdateRequest;
 
 import java.util.List;
 
 public interface UserService {
 
-    UserDto createUser(UserDto user);
+    User createUser(UserCreationRequest user);
 
-    UserDto updateUser(UserDto user, Integer userId);
+    User updateUser(Integer userId, UserUpdateRequest request);
+    User getUserById(Integer userId);
 
-    UserDto getUserById(Integer id);
-
-    List<UserDto> getUsers();
+    List<User> getUsers();
 
     void deleteUser(Integer userId);
 

@@ -1,58 +1,58 @@
 package com.dontwait.blog.services.impl;
 
 import com.dontwait.blog.entity.User;
-import com.dontwait.blog.payloads.UserDto;
+import com.dontwait.blog.payloads.request.UserCreationRequest;
+import com.dontwait.blog.payloads.request.UserUpdateRequest;
 import com.dontwait.blog.repositories.UserRepositoty;
 import com.dontwait.blog.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserRepositoty userRepositoty;
 
-    @Override
-    public UserDto createUser(UserDto user) {
-        return null;
+    @Autowired
+    public UserServiceImpl(UserRepositoty userRepositoty) {
+        this.userRepositoty = userRepositoty;
     }
 
     @Override
-    public UserDto updateUser(UserDto user, Integer userId) {
-        return null;
+    public User createUser(UserCreationRequest request) {
+        User user = new User();
+        user.setName(request.getName());
+        user.setPassword(request.getPassword());
+        user.setEmail(request.getEmail());
+        user.setAbout(request.getAbout());
+        return userRepositoty.save(user);
     }
 
     @Override
-    public UserDto getUserById(Integer id) {
-        return null;
+    public User updateUser(Integer userId, UserUpdateRequest request) {
+        User user = userRepositoty.findById(userId).orElse(null);
+        user.setName(request.getName());
+        user.setPassword(request.getPassword());
+        user.setAbout(request.getAbout());
+        return userRepositoty.save(user);
     }
 
     @Override
-    public List<UserDto> getUsers() {
-        return List.of();
+    public User getUserById(Integer id) {
+        return userRepositoty.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userRepositoty.findAll();
     }
 
     @Override
     public void deleteUser(Integer userId) {
-
-    }
-    private User dtoToUser(UserDto userDto) {
-        User user = new User();
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-        user.setAbout(userDto.getAbout());
-        return user;
+        userRepositoty.deleteById(userId);
     }
 
-    public UserDto UserToUserDto(User user) {
-        UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
-        userDto.setName(user.getName());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
-        userDto.setAbout(user.getAbout());
-        return userDto;
-    }
 
 }
