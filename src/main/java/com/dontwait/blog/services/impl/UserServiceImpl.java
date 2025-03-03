@@ -23,8 +23,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(UserCreationRequest request) {
         User user = new User();
+
+        //If new user creates same name in db -> exception
+        if(userRepositoty.existsByName(request.getName()))
+            throw new RuntimeException("User name existed.");
         user.setName(request.getName());
+
+
         user.setPassword(request.getPassword());
+
+        if(userRepositoty.existsByEmail(request.getEmail()))
+            throw new RuntimeException("Email existed.");
+
         user.setEmail(request.getEmail());
         user.setAbout(request.getAbout());
         return userRepositoty.save(user);
@@ -41,7 +51,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Integer id) {
-        return userRepositoty.findById(id).orElse(null);
+        return userRepositoty.findById(id)
+                .orElseThrow(()-> new RuntimeException("User not found"));
     }
 
     @Override
