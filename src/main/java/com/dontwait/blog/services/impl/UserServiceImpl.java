@@ -1,6 +1,8 @@
 package com.dontwait.blog.services.impl;
 
 import com.dontwait.blog.entity.User;
+import com.dontwait.blog.exception.AppException;
+import com.dontwait.blog.exception.ErrorCode;
 import com.dontwait.blog.payloads.request.UserCreationRequest;
 import com.dontwait.blog.payloads.request.UserUpdateRequest;
 import com.dontwait.blog.repositories.UserRepositoty;
@@ -26,7 +28,8 @@ public class UserServiceImpl implements UserService {
 
         //If new user creates same name in db -> exception
         if(userRepositoty.existsByName(request.getName()))
-            throw new RuntimeException("User name existed.");
+            throw new AppException(ErrorCode.USER_EXISTED); //by pass for GlobalExceptionHandler to handle that error
+
         user.setName(request.getName());
 
 

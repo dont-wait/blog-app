@@ -1,6 +1,7 @@
 package com.dontwait.blog.controllers;
 
 import com.dontwait.blog.entity.User;
+import com.dontwait.blog.payloads.request.ApiResponse;
 import com.dontwait.blog.payloads.request.UserCreationRequest;
 import com.dontwait.blog.payloads.request.UserUpdateRequest;
 import com.dontwait.blog.services.UserService;
@@ -33,8 +34,12 @@ public class UserController {
     }
 
     @PostMapping()
-    User createUser(@RequestBody @Valid UserCreationRequest request) {
-        return userService.createUser(request);
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
+        ApiResponse<User> apiResponse = new ApiResponse();
+
+        apiResponse.setResult(userService.createUser(request));
+
+        return apiResponse;
     }
 
     @PutMapping("{userId}")
