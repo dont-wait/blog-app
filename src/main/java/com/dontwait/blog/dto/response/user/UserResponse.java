@@ -1,4 +1,4 @@
-package com.dontwait.blog.payloads.response;
+package com.dontwait.blog.dto.response.user;
 
 
 import lombok.*;

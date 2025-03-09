@@ -1,4 +1,4 @@
-package com.dontwait.blog.payloads.request;
+package com.dontwait.blog.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

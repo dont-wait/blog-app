@@ -15,6 +15,9 @@ public enum ErrorCode {
     INVALID_PASSWORD(1004, "Password must be at least 8 characters"),
     EMAIL_EXISTED(1002, "Email already existed"),
     USERID_NOT_FOUND(1005, "User not found"),
+    CATEGORYID_EXISTED(1002, "Category already existed"),
+    CATEGORYTITLE_EXISTED(1002, "Category title already existed"),
+    CATEGORYID_NOT_FOUND(1005, "Category not found"),
     ;
     private int code;
     private String message;

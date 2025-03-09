@@ -1,4 +1,4 @@
-package com.dontwait.blog.payloads.request;
+package com.dontwait.blog.dto.request.user;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

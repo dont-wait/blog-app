@@ -1,18 +1,15 @@
 package com.dontwait.blog.exception;
 
-import com.dontwait.blog.payloads.request.ApiResponse;
+import com.dontwait.blog.dto.request.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.View;
 
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
-
 
     //TH NGoai le - ko bt trc dinh exception nay`
     @ExceptionHandler(value= RuntimeException.class)

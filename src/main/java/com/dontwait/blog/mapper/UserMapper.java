@@ -1,9 +1,9 @@
 package com.dontwait.blog.mapper;
 
 import com.dontwait.blog.entity.User;
-import com.dontwait.blog.payloads.request.UserCreationRequest;
-import com.dontwait.blog.payloads.request.UserUpdateRequest;
-import com.dontwait.blog.payloads.response.UserResponse;
+import com.dontwait.blog.dto.request.user.UserCreationRequest;
+import com.dontwait.blog.dto.request.user.UserUpdateRequest;
+import com.dontwait.blog.dto.response.user.UserResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
