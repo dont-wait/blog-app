@@ -12,11 +12,7 @@ import org.springframework.web.servlet.View;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private final View error;
 
-    public GlobalExceptionHandler(View error) {
-        this.error = error;
-    }
 
     //TH NGoai le - ko bt trc dinh exception nay`
     @ExceptionHandler(value= RuntimeException.class)

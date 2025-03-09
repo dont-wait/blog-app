@@ -1,29 +1,27 @@
 package com.dontwait.blog.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name="users")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    Integer id;
 
     @Column(name="user_name", nullable=false, length=100)
-    private String name;
+    String name;
 
-    private String email;
+    String email;
 
-    private String password;
+    String password;
 
-    private String about;
+    String about;
 }

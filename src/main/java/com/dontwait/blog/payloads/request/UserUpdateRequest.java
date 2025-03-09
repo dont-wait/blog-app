@@ -1,13 +1,16 @@
 package com.dontwait.blog.payloads.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserUpdateRequest {
 
-    private String name;
-    private String password;
-    private String about;
+     String name;
+     String password;
+     String about;
 }

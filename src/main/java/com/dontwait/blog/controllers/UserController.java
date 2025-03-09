@@ -4,11 +4,10 @@ import com.dontwait.blog.entity.User;
 import com.dontwait.blog.payloads.request.ApiResponse;
 import com.dontwait.blog.payloads.request.UserCreationRequest;
 import com.dontwait.blog.payloads.request.UserUpdateRequest;
+import com.dontwait.blog.payloads.response.UserResponse;
 import com.dontwait.blog.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +24,11 @@ public class UserController {
     }
 
     @GetMapping("{userId}")
-    User getUserById(@PathVariable Integer userId) throws Exception {
-        return userService.getUserById(userId);
+    ApiResponse<UserResponse> getUserById(@PathVariable Integer userId) throws Exception {
+
+        ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.getUserById(userId));
+        return apiResponse;
     }
     @GetMapping
     List<User> getAllUsers() {
@@ -34,27 +36,31 @@ public class UserController {
     }
 
     @PostMapping()
-    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
-        ApiResponse<User> apiResponse = new ApiResponse();
+    ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
 
+        ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
         apiResponse.setResult(userService.createUser(request));
 
         return apiResponse;
     }
 
     @PutMapping("{userId}")
-    User updateUser(@PathVariable Integer userId, @RequestBody UserUpdateRequest request) throws Exception {
-        User user = userService.getUserById(userId);
-        user.setName(request.getName());
-        user.setPassword(request.getPassword());
-        user.setAbout(request.getAbout());
-        return userService.updateUser(userId, request);
+    ApiResponse<UserResponse> updateUser(@PathVariable Integer userId, @RequestBody UserUpdateRequest request) throws Exception {
+
+        ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.updateUser(userId, request));
+
+        return apiResponse;
     }
 
     @DeleteMapping("{userId}")
-    String deleteUser(@PathVariable Integer userId) {
+    ApiResponse<String> deleteUser(@PathVariable Integer userId) {
+
+        ApiResponse<String> apiResponse = new ApiResponse<>();
         userService.deleteUser(userId);
-        return "User successfully deleted";
+        apiResponse.setResult("User successfully deleted");
+
+        return apiResponse;
     }
 
 }

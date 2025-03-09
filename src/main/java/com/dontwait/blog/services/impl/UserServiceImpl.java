@@ -3,8 +3,10 @@ package com.dontwait.blog.services.impl;
 import com.dontwait.blog.entity.User;
 import com.dontwait.blog.exception.AppException;
 import com.dontwait.blog.exception.ErrorCode;
+import com.dontwait.blog.mapper.UserMapper;
 import com.dontwait.blog.payloads.request.UserCreationRequest;
 import com.dontwait.blog.payloads.request.UserUpdateRequest;
+import com.dontwait.blog.payloads.response.UserResponse;
 import com.dontwait.blog.repositories.UserRepositoty;
 import com.dontwait.blog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,47 +17,42 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepositoty userRepositoty;
+    private final UserRepositoty userRepositoty;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepositoty userRepositoty) {
+    public UserServiceImpl(UserRepositoty userRepositoty, UserMapper userMapper) {
         this.userRepositoty = userRepositoty;
+        this.userMapper = userMapper;
     }
 
     @Override
-    public User createUser(UserCreationRequest request) {
-        User user = new User();
+    public UserResponse createUser(UserCreationRequest request) {
 
-        //If new user creates same name in db -> exception
         if(userRepositoty.existsByName(request.getName()))
             throw new AppException(ErrorCode.USER_EXISTED); //by pass for GlobalExceptionHandler to handle that error
 
-        user.setName(request.getName());
-
-
-        user.setPassword(request.getPassword());
-
         if(userRepositoty.existsByEmail(request.getEmail()))
-            throw new RuntimeException("Email existed.");
+            throw new AppException(ErrorCode.EMAIL_EXISTED);
 
-        user.setEmail(request.getEmail());
-        user.setAbout(request.getAbout());
-        return userRepositoty.save(user);
+        User user = userMapper.toUser(request);
+
+        return userMapper.toUserResponse(userRepositoty.save(user));
     }
 
     @Override
-    public User updateUser(Integer userId, UserUpdateRequest request) {
-        User user = userRepositoty.findById(userId).orElse(null);
-        user.setName(request.getName());
-        user.setPassword(request.getPassword());
-        user.setAbout(request.getAbout());
-        return userRepositoty.save(user);
+    public UserResponse updateUser(Integer userId, UserUpdateRequest request) {
+        User user = userRepositoty.findById(userId).orElseThrow(() -> new AppException(ErrorCode.USERID_NOT_FOUND));
+
+        userMapper.updateUser(user, request);
+
+        return userMapper.toUserResponse(userRepositoty.save(user));
     }
 
     @Override
-    public User getUserById(Integer id) {
-        return userRepositoty.findById(id)
-                .orElseThrow(()-> new RuntimeException("User not found"));
+    public UserResponse getUserById(Integer id) {
+        return userMapper.toUserResponse(userRepositoty.findById(id)
+                .orElseThrow(()-> new AppException(ErrorCode.USERID_NOT_FOUND)));
     }
 
     @Override

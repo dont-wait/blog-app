@@ -12,8 +12,10 @@ public enum ErrorCode {
     UNCATEGORIZED_EXCEPTION(6789, "Uncategorized Exception"),
     USER_EXISTED(1002, "User already existed"),
     NAME_INVALID(1003, "Name must be at least 3 character"),
-    INVALID_PASSWORD(1004, "Password must be at least 8 characters"),;
-
+    INVALID_PASSWORD(1004, "Password must be at least 8 characters"),
+    EMAIL_EXISTED(1002, "Email already existed"),
+    USERID_NOT_FOUND(1005, "User not found"),
+    ;
     private int code;
     private String message;
 
