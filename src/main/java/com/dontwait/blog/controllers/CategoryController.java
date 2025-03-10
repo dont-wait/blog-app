@@ -35,8 +35,10 @@ public class CategoryController {
     }
 
     @GetMapping
-    List<Category> getAllCategories() throws Exception {
-        return categoryService.getCategories();
+    ApiResponse<List<CategoryResponse>> getAllCategories() throws Exception {
+        ApiResponse<List<CategoryResponse>> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(categoryService.getCategories());
+        return apiResponse;
     }
 
     @PostMapping

@@ -16,6 +16,6 @@ public interface CategoryService {
     CategoryResponse createCategory(CategoryCreationRequest request);
     CategoryResponse updateCategory(Integer categoryId, CategoryUpdateRequest request);
     CategoryResponse getCategoryById(Integer categoryId) throws Exception;
-    List<Category> getCategories();
+    List<CategoryResponse> getCategories();
     void deleteCategory(Integer categoryId);
 }

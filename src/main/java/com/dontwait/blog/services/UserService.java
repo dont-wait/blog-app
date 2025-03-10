@@ -14,7 +14,7 @@ public interface UserService {
     UserResponse updateUser(Integer userId, UserUpdateRequest request);
     UserResponse getUserById(Integer userId) throws Exception;
 
-    List<User> getUsers();
+    List<UserResponse> getUsers();
 
     void deleteUser(Integer userId);
 

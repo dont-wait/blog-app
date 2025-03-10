@@ -31,8 +31,10 @@ public class UserController {
         return apiResponse;
     }
     @GetMapping
-    List<User> getAllUsers() {
-        return userService.getUsers();
+    ApiResponse<List<UserResponse>> getAllUsers() {
+        ApiResponse<List<UserResponse>> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.getUsers());
+        return apiResponse;
     }
 
     @PostMapping()
